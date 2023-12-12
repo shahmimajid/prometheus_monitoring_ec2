@@ -3,9 +3,9 @@ sudo mkdir /opt/nginx-exporter
 sudo su
 sudo cd /opt/nginx-exporter
 sudo useradd --system --no-create-home --shell /bin/false nginx-exporter
-curl -L https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.11.0/nginx-prometheus-exporter_0.11.0_linux_amd64.tar.gz
-tar -zxf nginx-prometheus-exporter_0.11.0_linux_amd64.tar.gz
-sudo rm nginx-prometheus-exporter_0.11.0_linux_amd64.tar.gz
+curl -L https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v1.0.0/nginx-prometheus-exporter_1.0.0_linux_amd64.tar.gz
+tar -zxf nginx-prometheus-exporter_1.0.0_linux_amd64.tar.gz
+sudo rm nginx-prometheus-exporter_1.0.0_linux_amd64.tar.gz
 ./nginx-prometheus-exporter --version
 chown -R nginx-exporter:nginx-exporter /opt/nginx-exporter
 
