@@ -9,26 +9,30 @@ sudo rm nginx-prometheus-exporter_1.0.0_linux_amd64.tar.gz
 ./nginx-prometheus-exporter --version
 chown -R nginx-exporter:nginx-exporter /opt/nginx-exporter
 
-# vim /etc/systemd/system/nginx-exporter.service
-# [Unit]
-# Description=Nginx Exporter
-# Wants=network-online.target
-# After=network-online.target
+SERVICE_FILE="/etc/systemd/system/nginx-exporter.service"
 
-# StartLimitIntervalSec=0
+# Write the Prometheus service configuration into the file
+sudo cat <<EOF > "$SERVICE_FILE"
+[Unit]
+Description=Nginx Exporter
+Wants=network-online.target
+After=network-online.target
 
-# [Service]
-# User=nginx-exporter
-# Group=nginx-exporter
-# Type=simple
-# Restart=on-failure
-# RestartSec=5s
+StartLimitIntervalSec=0
 
-# ExecStart=/opt/nginx-exporter/nginx-prometheus-exporter \
-#     -nginx.scrape-uri=http://localhost:8080/status
+[Service]
+User=nginx-exporter
+Group=nginx-exporter
+Type=simple
+Restart=on-failure
+RestartSec=5s
 
-# [Install]
-# WantedBy=multi-user.target
+ExecStart=/opt/nginx-exporter/nginx-prometheus-exporter \
+    -nginx.scrape-uri=http://localhost:8080/status
+
+[Install]
+WantedBy=multi-user.target
+EOF
 
 sudo systemctl enable nginx-exporter
 sudo systemctl start nginx-exporter

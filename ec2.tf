@@ -9,7 +9,10 @@ resource "aws_instance" "prometheus" {
     Name = "prometheus"
   }
 
-  user_data = filebase64("${path.module}/prometheusInstall.sh")
+  user_data = base64encode(join("", [
+  file("${path.module}/prometheusInstall.sh"),
+  file("${path.module}/nodeexporterInstall.sh"),
+  ]))
 
 }
 
@@ -23,7 +26,12 @@ resource "aws_instance" "grafana" {
     Name = "grafana"
   }
 
-  user_data = filebase64("${path.module}/grafanaInstall.sh")
+  user_data = base64encode(join("", [
+  file("${path.module}/grafanaInstall.sh"),
+  file("${path.module}/nodeexporterInstall.sh"),
+  file("${path.module}/nginxInstall.sh"),
+  ]))
+  
 
 }
 
