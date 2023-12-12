@@ -5,9 +5,9 @@ sudo useradd -s /sbin/nologin --system -g prometheus prometheus
 sudo mkdir /etc/prometheus
 sudo mkdir /var/lib/prometheus
  
-wget  wget https://github.com/prometheus/prometheus/releases/download/v2.43.0/prometheus-2.43.0.linux-amd64.tar.gz
+wget https://github.com/prometheus/prometheus/releases/download/v2.48.1/prometheus-2.48.1.linux-amd64.tar.gz
 tar vxf prometheus*.tar.gz
-cd prometheus-2.43.0.linux-amd64
+cd prometheus-2.48.1.linux-amd64
 sudo mv prometheus /usr/local/bin
 sudo mv promtool /usr/local/bin
 sudo chown prometheus:prometheus /usr/local/bin/prometheus
@@ -21,7 +21,7 @@ sudo chown -R prometheus:prometheus /etc/prometheus/consoles
 sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
 sudo chown -R prometheus:prometheus /var/lib/prometheus
 
-rm -rf prometheus-2.23.0.linux-amd64.tar.gz prometheus-2.19.0.linux-amd64
+rm -rf prometheus-*
 
 sudo chown prometheus:prometheus /etc/prometheus
 sudo chown prometheus:prometheus /usr/local/bin/prometheus
