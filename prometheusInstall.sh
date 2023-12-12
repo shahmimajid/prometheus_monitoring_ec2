@@ -48,12 +48,36 @@ sudo chown -R prometheus:prometheus /var/lib/prometheus
 # [Install]
 # WantedBy=multi-user.target
 
+# Define the path of the systemd service file
+SERVICE_FILE="/etc/systemd/system/prometheus.service"
+
+# Write the Prometheus service configuration into the file
+sudo cat <<EOF > "$SERVICE_FILE"
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \\
+    --config.file /etc/prometheus/prometheus.yml \\
+    --storage.tsdb.path /var/lib/prometheus/ \\
+    --web.console.templates=/etc/prometheus/consoles \\
+    --web.console.libraries=/etc/prometheus/console_libraries
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 
 
 # promtool check config /etc/prometheus/prometheus.yml
 
-# sudo systemctl daemon-reload
-# sudo systemctl enable prometheus
-# sudo systemctl start prometheus
-# sudo systemctl status prometheus
+sudo systemctl daemon-reload
+sudo systemctl enable prometheus
+sudo systemctl start prometheus
+sudo systemctl status prometheus
 
