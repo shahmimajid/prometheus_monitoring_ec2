@@ -1,18 +1,9 @@
-# resource "aws_instance" "web" {
-#   ami           = "ami-053b0d53c279acc90" 
-#   instance_type = "t2.micro"
-#   count         = 3
-
-#   tags = {
-#     Name = element(["prometheus", "grafana", "nodeexplorer"], count.index)
-#   }
-# }
-
-resource "aws_instance" "web1" {
-  ami             = "ami-0f5ee92e2d63afc18"
-  instance_type   = "t2.micro"
+resource "aws_instance" "prometheus" {
+  ami             = "ami-078c1149d8ad719a7"
+  instance_type   = "t3.micro"
   security_groups = [aws_security_group.TF_SG.name]
-  key_name = "cn_v1"
+  key_name = "tfkeys"
+  
 
   tags = {
     Name = "prometheus"
@@ -22,11 +13,11 @@ resource "aws_instance" "web1" {
 
 }
 
-resource "aws_instance" "web2" {
-  ami             = "ami-0f5ee92e2d63afc18"
-  instance_type   = "t2.micro"
+resource "aws_instance" "grafana" {
+  ami             = "ami-078c1149d8ad719a7"
+  instance_type   = "t3.micro"
   security_groups = [aws_security_group.TF_SG.name]
-  key_name = "cn_v1"
+  key_name = "tfkeys"
 
   tags = {
     Name = "grafana"
@@ -37,7 +28,7 @@ resource "aws_instance" "web2" {
 }
 
 # resource "aws_instance" "web3" {
-#   ami             = "ami-053b0d53c279acc90"
+#   ami             = "ami-078c1149d8ad719a7"
 #   instance_type   = "t2.micro"
 #   security_groups = [aws_security_group.TF_SG.name]
 #   key_name = "devopsKP"
